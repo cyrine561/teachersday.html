@@ -1,10 +1,722 @@
-# teachersday.htmlput this Teacher’s Day letter into Canva, I can convert the design into a Canva-ready layout with:
-- 💙 Blue/pixel-inspired theme
-- 🌙 Dark mode / light mode look
-- 💌 Envelope opening design
-- 👨‍🏫 “Dear Sir Randy Bello”
-- ✨ Teacher’s Day message
-- ❤️ Heart/pixel decorations
-- ✍️ “With gratitude, Your student”
-- Cyrine Ibanes as your name
-- A layout that is easy to recreate in Canva
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher’s Day Letter for Sir Randy Bello</title>
+
+  <style>
+    :root {
+      --bg: #100b10;
+      --bg-soft: #1c1018;
+      --card: #26131e;
+      --paper: #fff1dc;
+      --paper-soft: #f7d9c8;
+      --text: #fff4ed;
+      --ink: #391d2b;
+      --muted: #c99eab;
+      --red: #a5223b;
+      --red-dark: #681629;
+      --pink: #e86b83;
+      --heart: #ff6981;
+      --shadow: rgba(0, 0, 0, 0.45);
+      --pixel: 4px;
+      --transition: 500ms cubic-bezier(.2, .8, .2, 1);
+    }
+
+    body.light {
+      --bg: #f8e2d7;
+      --bg-soft: #f5caca;
+      --card: #fff1dc;
+      --paper: #fffaf0;
+      --paper-soft: #ffe1dc;
+      --text: #391d2b;
+      --ink: #391d2b;
+      --muted: #754b5b;
+      --red: #a5223b;
+      --red-dark: #731b35;
+      --pink: #c83f61;
+      --heart: #c52853;
+      --shadow: rgba(93, 27, 49, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 50% 20%, var(--red-dark), transparent 35%),
+        var(--bg);
+      font-family: Georgia, "Times New Roman", serif;
+      transition:
+        background var(--transition),
+        color var(--transition);
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 3px solid var(--pink);
+      outline-offset: 5px;
+    }
+
+    .pixel-particles {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .pixel {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      background: var(--pink);
+      opacity: .35;
+      animation: floatPixel 7s linear infinite;
+    }
+
+    @keyframes floatPixel {
+      from {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+      20% {
+        opacity: .4;
+      }
+      to {
+        transform: translateY(-10vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .topbar {
+      width: min(1100px, 92%);
+      margin: 0 auto;
+      padding: 24px 0 10px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .theme-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-family: monospace;
+      font-size: .85rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .switch {
+      position: relative;
+      width: 48px;
+      height: 26px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      inset: 0;
+      cursor: pointer;
+      border: 2px solid var(--pink);
+      background: var(--red-dark);
+      transition: var(--transition);
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 3px;
+      top: 3px;
+      background: var(--paper);
+      box-shadow: 3px 3px 0 var(--red);
+      transition: var(--transition);
+    }
+
+    .switch input:checked + .slider {
+      background: var(--paper-soft);
+    }
+
+    .switch input:checked + .slider::before {
+      transform: translateX(20px);
+      background: var(--red);
+    }
+
+    main {
+      width: min(900px, 92%);
+      margin: 0 auto;
+      padding: 35px 0 60px;
+    }
+
+    .hero {
+      min-height: 72vh;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .hero.hide {
+      opacity: 0;
+      transform: translateY(-30px);
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+    }
+
+    .eyebrow {
+      color: var(--pink);
+      font-family: monospace;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-size: .8rem;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0 0 30px;
+      color: var(--text);
+      font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      font-size: clamp(2.4rem, 8vw, 5.5rem);
+      line-height: .95;
+      letter-spacing: .04em;
+      text-shadow: 5px 5px 0 var(--red-dark);
+    }
+
+    .envelope-wrap {
+      position: relative;
+      width: min(430px, 90vw);
+      height: 285px;
+      margin: 20px auto 28px;
+      perspective: 1000px;
+    }
+
+    .envelope {
+      position: absolute;
+      inset: 30px 0 0;
+      background: var(--red);
+      border: var(--pixel) solid var(--paper);
+      box-shadow:
+        10px 10px 0 var(--red-dark),
+        0 20px 45px var(--shadow);
+      transition: transform 900ms ease;
+    }
+
+    .envelope::before,
+    .envelope::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-style: solid;
+    }
+
+    .envelope::before {
+      left: 0;
+      border-width: 0 0 190px 210px;
+      border-color: transparent transparent var(--red-dark) transparent;
+    }
+
+    .envelope::after {
+      right: 0;
+      border-width: 190px 0 0 210px;
+      border-color: transparent transparent transparent var(--red-dark);
+    }
+
+    .flap {
+      position: absolute;
+      z-index: 3;
+      top: 0;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: 150px;
+      background: var(--pink);
+      border: var(--pixel) solid var(--paper);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      transform-origin: top center;
+      transition: transform 900ms ease;
+    }
+
+    .seal {
+      position: absolute;
+      z-index: 5;
+      left: 50%;
+      top: 112px;
+      transform: translateX(-50%);
+      width: 72px;
+      height: 72px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--red-dark);
+      border: 5px solid var(--paper);
+      box-shadow: 5px 5px 0 rgba(0,0,0,.25);
+      font-size: 2rem;
+      transition: transform 700ms ease, opacity 500ms ease;
+    }
+
+    .seal::before {
+      content: "♥";
+    }
+
+    .envelope.open .flap {
+      transform: rotateX(180deg);
+    }
+
+    .envelope.open .seal {
+      transform: translate(-50%, -55px) scale(.4);
+      opacity: 0;
+    }
+
+    .envelope.open {
+      transform: translateY(20px);
+    }
+
+    .envelope-label {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      top: 178px;
+      transform: translateX(-50%);
+      width: 100%;
+      color: var(--paper);
+      font-family: monospace;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: .82rem;
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      border: 0;
+      cursor: pointer;
+      color: white;
+      background: var(--red);
+      padding: 14px 22px;
+      box-shadow: 5px 5px 0 var(--red-dark);
+      transition: transform 180ms ease, box-shadow 180ms ease, background var(--transition);
+      font-family: monospace;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .primary-btn:hover,
+    .secondary-btn:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 3px 3px 0 var(--red-dark);
+    }
+
+    .secondary-btn {
+      color: var(--text);
+      background: transparent;
+      border: 2px solid var(--pink);
+      box-shadow: none;
+    }
+
+    .letter-section {
+      display: none;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .letter-section.visible {
+      display: block;
+      animation: revealLetter 900ms ease forwards;
+    }
+
+    @keyframes revealLetter {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .letter-card {
+      position: relative;
+      color: var(--ink);
+      background:
+        linear-gradient(135deg, transparent 15px, var(--paper) 0) top left,
+        linear-gradient(225deg, transparent 15px, var(--paper) 0) top right,
+        linear-gradient(315deg, transparent 15px, var(--paper) 0) bottom right,
+        linear-gradient(45deg, transparent 15px, var(--paper) 0) bottom left;
+      background-size: 51% 51%;
+      background-repeat: no-repeat;
+      padding: clamp(28px, 6vw, 70px);
+      border: 5px solid var(--red);
+      box-shadow: 10px 10px 0 var(--red-dark), 0 20px 60px var(--shadow);
+    }
+
+    .letter-card::before {
+      content: "✦  8-BIT HEARTMAIL  ✦";
+      display: block;
+      padding-bottom: 18px;
+      margin-bottom: 30px;
+      color: var(--red);
+      border-bottom: 3px dotted var(--red);
+      font: bold .75rem monospace;
+      letter-spacing: .15em;
+    }
+
+    .letter-card h2 {
+      margin-top: 0;
+      color: var(--red-dark);
+      font-size: clamp(1.7rem, 4vw, 2.8rem);
+    }
+
+    .letter-card p {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      line-height: 1.8;
+      white-space: pre-line;
+    }
+
+    .signature {
+      color: var(--red-dark);
+      font-weight: bold;
+    }
+
+    .letter-actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 35px;
+    }
+
+    .heart-count {
+      color: var(--muted);
+      font-family: monospace;
+      font-size: .9rem;
+    }
+
+    .heart {
+      position: fixed;
+      z-index: 20;
+      pointer-events: none;
+      color: var(--heart);
+      font-size: 22px;
+      animation: heartBurst 1.2s ease-out forwards;
+    }
+
+    @keyframes heartBurst {
+      from {
+        opacity: 1;
+        transform: translate(0, 0) scale(.7) rotate(0deg);
+      }
+      to {
+        opacity: 0;
+        transform: translate(var(--x), var(--y)) scale(1.4) rotate(var(--r));
+      }
+    }
+
+    footer {
+      margin-top: 50px;
+      color: var(--muted);
+      text-align: center;
+      font: .8rem monospace;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 600px) {
+      .topbar {
+        padding-top: 18px;
+      }
+
+      .envelope-wrap {
+        height: 255px;
+      }
+
+      .envelope::before {
+        border-width: 0 0 165px 50%;
+      }
+
+      .envelope::after {
+        border-width: 165px 0 0 50%;
+      }
+
+      .letter-card {
+        padding: 28px 22px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="pixel-particles" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <label class="theme-control">
+      <span>Dark mode</span>
+      <span class="switch">
+        <input id="themeToggle" type="checkbox" checked aria-label="Dark mode" />
+        <span class="slider"></span>
+      </span>
+    </label>
+  </header>
+
+  <main>
+    <section class="hero" id="hero">
+      <div>
+        <div class="eyebrow">A special message</div>
+        <h1>Happy<br />Teacher’s Day</h1>
+
+        <div class="envelope-wrap">
+          <div class="envelope" id="envelope">
+            <div class="flap"></div>
+            <div class="seal"></div>
+            <div class="envelope-label">
+              For Sir Randy Bello
+            </div>
+          </div>
+        </div>
+
+        <button class="primary-btn" id="openBtn">
+          Open the Letter
+        </button>
+      </div>
+    </section>
+
+    <section class="letter-section" id="letterSection" aria-labelledby="letterTitle">
+      <article class="letter-card" id="letterCard" tabindex="-1">
+        <h2 id="letterTitle">Dear Sir Randy Bello,</h2>
+
+        <p>
+Happy Teacher’s Day!
+
+Thank you for being more than an instructor. Through your guidance in web development, you have helped us understand that coding is not only about writing lines of code, but also about solving problems, being patient, staying curious, and turning ideas into something real.
+
+Your lessons, encouragement, and willingness to guide us make learning feel more possible, even when a project gets challenging. Every concept you teach gives us another step toward becoming better developers and more confident creators.
+
+Thank you for sharing your knowledge, time, and passion for web development. We truly appreciate the impact you make on your students.
+
+Wishing you a meaningful and joyful Teacher’s Day!
+        </p>
+
+        <p class="signature">
+          With gratitude,<br />
+          Your student
+        </p>
+      </article>
+
+      <div class="letter-actions">
+        <button class="primary-btn" id="heartBtn">
+          ♥ Send a heart
+        </button>
+
+        <span class="heart-count" aria-live="polite">
+          Hearts sent: <strong id="heartCount">0</strong>
+        </span>
+
+        <button class="secondary-btn" id="replayBtn">
+          Replay opening
+        </button>
+      </div>
+
+      <footer>
+        Built with gratitude, pixels, and a little JavaScript.
+      </footer>
+    </section>
+
+    <div class="sr-only" id="liveRegion" aria-live="polite"></div>
+  </main>
+
+  <script>
+    const body = document.body;
+    const hero = document.getElementById("hero");
+    const envelope = document.getElementById("envelope");
+    const openBtn = document.getElementById("openBtn");
+    const letterSection = document.getElementById("letterSection");
+    const letterCard = document.getElementById("letterCard");
+    const replayBtn = document.getElementById("replayBtn");
+    const heartBtn = document.getElementById("heartBtn");
+    const heartCountElement = document.getElementById("heartCount");
+    const liveRegion = document.getElementById("liveRegion");
+    const themeToggle = document.getElementById("themeToggle");
+    const particleContainer = document.querySelector(".pixel-particles");
+
+    let heartCount = 0;
+    let isOpen = false;
+
+    function announce(message) {
+      liveRegion.textContent = "";
+      window.setTimeout(() => {
+        liveRegion.textContent = message;
+      }, 30);
+    }
+
+    function openLetter() {
+      if (isOpen) return;
+
+      isOpen = true;
+      envelope.classList.add("open");
+
+      window.setTimeout(() => {
+        hero.classList.add("hide");
+        letterSection.classList.add("visible");
+
+        window.setTimeout(() => {
+          letterCard.focus({ preventScroll: true });
+          letterSection.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }, 300);
+
+        announce("The Teacher’s Day letter is now open.");
+      }, 850);
+    }
+
+    function replayOpening() {
+      isOpen = false;
+      letterSection.classList.remove("visible");
+      hero.classList.remove("hide");
+      envelope.classList.remove("open");
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      announce("The letter opening has been replayed.");
+    }
+
+    function sendHeart() {
+      heartCount++;
+      heartCountElement.textContent = heartCount;
+      announce("Heart sent.");
+
+      const rect = heartBtn.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      for (let i = 0; i < 14; i++) {
+        const heart = document.createElement("span");
+        heart.className = "heart";
+        heart.textContent = Math.random() > .25 ? "♥" : "❤";
+
+        heart.style.left = `${centerX}px`;
+        heart.style.top = `${centerY}px`;
+        heart.style.setProperty("--x", `${(Math.random() - .5) * 260}px`);
+        heart.style.setProperty("--y", `${-80 - Math.random() * 180}px`);
+        heart.style.setProperty("--r", `${(Math.random() - .5) * 80}deg`);
+        heart.style.fontSize = `${16 + Math.random() * 18}px`;
+
+        document.body.appendChild(heart);
+
+        window.setTimeout(() => {
+          heart.remove();
+        }, 1300);
+      }
+    }
+
+    function loadTheme() {
+      try {
+        const savedTheme = localStorage.getItem("teacherLetterTheme");
+
+        if (savedTheme === "light") {
+          body.classList.add("light");
+          themeToggle.checked = false;
+        } else {
+          body.classList.remove("light");
+          themeToggle.checked = true;
+        }
+      } catch {
+        themeToggle.checked = true;
+      }
+    }
+
+    function saveTheme() {
+      try {
+        localStorage.setItem(
+          "teacherLetterTheme",
+          themeToggle.checked ? "dark" : "light"
+        );
+      } catch {
+        // The page still works if localStorage is unavailable.
+      }
+    }
+
+    function createParticles() {
+      const total = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? 8
+        : 32;
+
+      for (let i = 0; i < total; i++) {
+        const pixel = document.createElement("span");
+        pixel.className = "pixel";
+        pixel.style.left = `${Math.random() * 100}%`;
+        pixel.style.animationDelay = `${Math.random() * 7}s`;
+        pixel.style.animationDuration = `${5 + Math.random() * 8}s`;
+        pixel.style.opacity = `${.15 + Math.random() * .3}`;
+        particleContainer.appendChild(pixel);
+      }
+    }
+
+    openBtn.addEventListener("click", openLetter);
+    replayBtn.addEventListener("click", replayOpening);
+    heartBtn.addEventListener("click", sendHeart);
+
+    themeToggle.addEventListener("change", () => {
+      body.classList.toggle("light", !themeToggle.checked);
+      saveTheme();
+
+      announce(
+        themeToggle.checked
+          ? "Dark mode enabled."
+          : "Light mode enabled."
+      );
+    });
+
+    loadTheme();
+    createParticles();
+  </script>
+</body>
+</html>
+
+
+Canva
